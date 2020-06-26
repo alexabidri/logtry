@@ -1,0 +1,14 @@
+{
+  "extends": ["prettier", "airbnb"],
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules" : {
+    "arrow-parens": 0,
+    "operator-linebreak": 0,
+    "implicit-arrow-linebreak": 0
+  }
+}
