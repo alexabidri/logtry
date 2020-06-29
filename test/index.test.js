@@ -49,9 +49,7 @@ describe('index.js', () => {
       logger.fatal(new Error('Fatal error'), 'hello');
       message = logs.shift();
 
-      expect(message)
-        .to.be.an('object')
-        .with.property('stack');
+      expect(message).to.be.an('object').with.property('stack');
       expect(message.stack.substr(0, 18)).to.be.eql('Error: Fatal error');
     });
 
