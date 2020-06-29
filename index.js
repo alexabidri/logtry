@@ -23,14 +23,16 @@ function init(config) {
   if (finalConfig.sentry && finalConfig.sentry.dsn) {
     Sentry.init({
       dsn: finalConfig.sentry.dsn,
-      integrations: integrations =>
-        integrations.filter(integration => integration.name !== 'Breadcrumbs'),
+      integrations: (integrations) =>
+        integrations.filter(
+          (integration) => integration.name !== 'Breadcrumbs',
+        ),
     });
 
     const client = {
       level: 'warn',
       stream: {
-        write: record => {
+        write: (record) => {
           const data = JSON.parse(record);
           Sentry.captureEvent({
             level: 'error',
