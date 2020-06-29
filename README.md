@@ -1,5 +1,7 @@
 # Logtry
 
+![Automated Tests](https://github.com/alexabidri/logtry/workflows/Automated%20Tests/badge.svg) [![devDependencies Status](https://david-dm.org/bevry/badges/dev-status.svg)](https://david-dm.org/bevry/badges?type=dev)
+
 A Pino configurable logger for NodeJS to send logs to loggly and sentry
 
 <!-- TOC depthFrom:2 -->
