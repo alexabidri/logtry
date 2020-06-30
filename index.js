@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const pino = require('pino');
 const Sentry = require('@sentry/node');
 const { multistream } = require('pino-multi-stream');
@@ -7,10 +6,8 @@ const Pino2Loggly = require('./lib/pino-loggly');
 const defaultConfig = require('./config');
 
 function init(config) {
-  const finalConfig = _.defaultsDeep(config, defaultConfig);
-
-  const loggerName = finalConfig.logger.name;
-  const loggerLevel = finalConfig.logger.level;
+  const loggerName = config.logger.name;
+  const loggerLevel = config.logger.level;
   const loggerConfig = {
     name: loggerName,
     level: loggerLevel,
@@ -20,9 +17,9 @@ function init(config) {
 
   streams.push({ level: loggerLevel, stream: process.stdout });
 
-  if (finalConfig.sentry && finalConfig.sentry.dsn) {
+  if (config.sentry && config.sentry.dsn) {
     Sentry.init({
-      dsn: finalConfig.sentry.dsn,
+      dsn: config.sentry.dsn,
       integrations: (integrations) =>
         integrations.filter(
           (integration) => integration.name !== 'Breadcrumbs',
@@ -46,12 +43,8 @@ function init(config) {
     streams.push(client);
   }
 
-  if (
-    finalConfig.loggly &&
-    finalConfig.loggly.token &&
-    finalConfig.loggly.subdomain
-  ) {
-    const logglyStream = new Pino2Loggly(finalConfig.loggly);
+  if (config.loggly && config.loggly.token && config.loggly.subdomain) {
+    const logglyStream = new Pino2Loggly(config.loggly);
     const logglyClient = {
       type: 'raw',
       stream: logglyStream,
