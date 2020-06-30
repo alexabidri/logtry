@@ -1,5 +1,7 @@
 # Logtry
 
+[![NPM](https://nodei.co/npm/logtry.png)](https://nodei.co/npm/logtry/)
+
 ![Automated Tests](https://github.com/alexabidri/logtry/workflows/Automated%20Tests/badge.svg) [![devDependencies Status](https://david-dm.org/bevry/badges/dev-status.svg)](https://david-dm.org/bevry/badges?type=dev)
 
 A Pino configurable logger for NodeJS to send logs to loggly and sentry
