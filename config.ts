@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   logger: {
     name: process.env.LOGGER_NAME || 'dev-logger',
     level: process.env.LOGGER_LEVEL || 'info',
@@ -13,3 +13,5 @@ module.exports = {
     dsn: process.env.SENTRY_DSN,
   },
 };
+
+export default config;

@@ -1,19 +1,22 @@
 {
   "name": "logtry",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "A Pino configurable logger for NodeJS to send logs to loggly and sentry",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "prettier": "prettier -l index.js '{streams,test}/**/*.js'",
-    "prettier:write": "prettier --write '**/*.{js,yml,yaml,json,md}'",
+    "build": "rm -rf ./dist && tsc --declarationDir dist --outDir dist",
+    "prettier": "prettier -l index.ts 'lib/**/*.{js,ts,yml,yaml,json,md}'",
+    "prettier:write": "prettier --write index.ts 'lib/**/*.{js,ts,yml,yaml,json,md}'",
     "eslint": "eslint .",
-    "lint": "npm run prettier && npm run eslint",
+    "lint": "tsc --noEmit && npm run prettier && npm run eslint",
     "mocha": "_mocha --exit",
     "coverage": "NODE_ENV=test nyc _mocha --exit",
-    "test": "npm run lint && npm run coverage"
+    "test": "npm run lint && npm run coverage",
+    "prepublishOnly": "npm run build && npm run lint -- --quiet && npm run test"
   },
   "repository": {
     "type": "git",
@@ -32,6 +35,10 @@
   "author": "Alexandre Abidri <alex.abidri@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@types/json-stringify-safe": "5.0.0",
+    "@types/node-loggly-bulk": "2.2.0",
+    "@types/pino": "6.3.0",
+    "@types/pino-multi-stream": "5.0.0",
     "chai": "4.2.0",
     "eslint": "7.4.0",
     "eslint-config-airbnb": "18.2.0",
@@ -43,7 +50,8 @@
     "nyc": "15.1.0",
     "prettier": "2.0.5",
     "rewire": "5.0.0",
-    "sinon": "9.0.2"
+    "sinon": "9.0.2",
+    "typescript": "3.9.6"
   },
   "dependencies": {
     "@sentry/node": "5.19.0",
