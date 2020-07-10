@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const rewire = require('rewire');
 
-let logger = require('../index');
+let logger = require('../dist/index').default;
 
 describe('index.js', () => {
   let oldStdoutWrite;
@@ -20,7 +20,7 @@ describe('index.js', () => {
           oldStdoutWrite.apply(process.stdout, [string]);
         }
       };
-      logger = rewire('../index');
+      logger = rewire('../dist/index').default;
     });
 
     after(() => {

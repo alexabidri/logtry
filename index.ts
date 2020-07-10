@@ -1,11 +1,12 @@
-const pino = require('pino');
-const Sentry = require('@sentry/node');
-const { multistream } = require('pino-multi-stream');
+import pino from 'pino';
+import Sentry from '@sentry/node';
+import { multistream } from 'pino-multi-stream';
 
-const Pino2Loggly = require('./lib/pino-loggly');
-const defaultConfig = require('./config');
+import Pino2Loggly from './lib/pino-loggly';
+import defaultConfig from './config';
+import { Config } from './index.d';
 
-function init(config) {
+function init(config: Config) {
   const loggerName = config.logger.name;
   const loggerLevel = config.logger.level;
   const loggerConfig = {
@@ -29,9 +30,10 @@ function init(config) {
     const client = {
       level: 'warn',
       stream: {
-        write: (record) => {
+        write: (record: any) => {
           const data = JSON.parse(record);
           Sentry.captureEvent({
+            // @ts-ignore
             level: 'error',
             timestamp: data.time,
             message: data.msg,
@@ -44,7 +46,7 @@ function init(config) {
   }
 
   if (config.loggly && config.loggly.token && config.loggly.subdomain) {
-    const logglyStream = new Pino2Loggly(config.loggly);
+    const logglyStream = new Pino2Loggly(config.loggly, 1);
     const logglyClient = {
       type: 'raw',
       stream: logglyStream,
@@ -52,10 +54,11 @@ function init(config) {
     streams.push(logglyClient);
   }
 
+  // @ts-ignore
   return pino(loggerConfig, multistream(streams));
 }
 
+// @ts-ignore
 const logger = init(defaultConfig);
 
-module.exports = logger;
-module.exports.init = init;
+export default logger;
