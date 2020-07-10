@@ -1,5 +1,5 @@
 import pino from 'pino';
-import Sentry from '@sentry/node';
+import * as Sentry from '@sentry/node';
 import { multistream } from 'pino-multi-stream';
 
 import Pino2Loggly from './lib/pino-loggly';

@@ -20,7 +20,7 @@ jobs:
       - name: Installing CI
         run: npm ci
       - name: Build
-        run: npm build
+        run: npm run build
       - name: Test launch
         run: npm test
         env:
