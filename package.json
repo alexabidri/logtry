@@ -9,8 +9,8 @@
   },
   "scripts": {
     "build": "rm -rf ./dist && tsc --declarationDir dist --outDir dist",
-    "prettier": "prettier -l index.ts 'lib/**/*.{js,ts,yml,yaml,json,md}'",
-    "prettier:write": "prettier --write index.ts 'lib/**/*.{js,ts,yml,yaml,json,md}'",
+    "prettier": "prettier -l README.md config.ts index.d.ts index.ts 'lib/**/*.{js,ts,yml,yaml,json,md}'",
+    "prettier:write": "prettier --write README.md config.ts index.d.ts index.ts 'lib/**/*.{js,ts,yml,yaml,json,md}'",
     "eslint": "eslint .",
     "lint": "tsc --noEmit && npm run prettier && npm run eslint",
     "mocha": "_mocha --exit",

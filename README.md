@@ -38,18 +38,19 @@ npm install --save logtry
 ## Use
 
 ```javascript
-'use strict';
-
-const logger = require('logtry');
+// Using modules
+import logger from 'logtry';
+// or if using common.js
+const logger = require('logtry').default;
 
 // Log a fatal error message:
 logger.fatal({ err: new Error('Fatal'), field: 'additional info' }, 'fatal message');
 
 // Log an error message:
-logger.error({ err: new Error('Error'), anotherField: 'extra context' }, 'error message');
+logger.error({ err: new Error('Error'), data: 'extra data' }, 'error message');
 
 // Log a warning message:
-logger.warn({ err: new Error('Warn'), userId:'1e7b8d', age: 17 }, 'Warning while getting info');
+logger.warn({ err: new Error('Warn'), home: 17 }, 'Warning while getting info');
 
 // Log an informational message:
 logger.info({ field: 1 }, 'info message');
@@ -63,3 +64,12 @@ logger.trace({ fields: [1, 2, 66]] }, 'trace message');
 ```
 
 ## MIT Licensed
+
+## Contributing
+
+Pull requests are always welcomed. 🙇🏻‍♂️ Please open an issue first to discuss what you would like to change.
+
+## Support
+
+If you have any questions or need help with integration, then you can contact me by email
+[alex.abidri@gmail.com](alex.abidri@gmail.com).
