@@ -1,16 +1,47 @@
 import loggly from 'node-loggly-bulk';
-import stringifySafe from 'json-stringify-safe';
-import { LogglyConfig } from './pino-loggly.d';
 
-const noop = () => {};
+import stringifySafe from 'json-stringify-safe';
+import { LogglyInstance } from 'loggly';
+
+/**
+ * The response token object returned on a successful request.
+ * @link https://developer.apple.com/documentation/sign_in_with_apple/tokenresponse
+ */
+export interface LogglyConfig {
+  /**
+   * The loggly token
+   */
+  token: string;
+  /**
+   * The loggly subdomain
+   */
+  subdomain: string;
+  /**
+   * True if it's bulk
+   */
+  isBulk?: boolean;
+  /**
+   * True if it's json
+   */
+  json?: boolean;
+  bufferOptions?: {
+    size: number;
+    retriesInMilliSeconds: number;
+  };
+}
+
+const noop = (value: unknown) => value;
 
 export default class Pino2Loggly {
-  private callback: Function;
-  private bufferLength: any;
-  private bufferTimeout: number;
-  private logglyClient: any;
+  private callback: unknown;
 
-  constructor(logglyConfig: LogglyConfig, bufferLength: Number) {
+  private bufferLength: number;
+
+  private bufferTimeout: number;
+
+  private logglyClient: LogglyInstance;
+
+  constructor(logglyConfig: LogglyConfig, bufferLength: number) {
     if (!logglyConfig || !logglyConfig.token || !logglyConfig.subdomain) {
       throw new Error(
         'pino-loggly requires a config object with token and subdomain',
@@ -36,7 +67,7 @@ export default class Pino2Loggly {
     this.logglyClient = loggly.createClient(config);
   }
 
-  public write(originalData: any) {
+  public write(originalData: string) {
     let data = JSON.parse(originalData);
     const pino2Loggly = this;
 
@@ -47,7 +78,8 @@ export default class Pino2Loggly {
       delete data.time;
     }
 
-    pino2Loggly.logglyClient.log(data, (error: any, result: any) => {
+    pino2Loggly.logglyClient.log(data, (error: unknown, result: unknown) => {
+      // @ts-ignore
       pino2Loggly.callback(error, result, data);
     });
   }

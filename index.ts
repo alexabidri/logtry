@@ -4,7 +4,21 @@ import { multistream } from 'pino-multi-stream';
 
 import Pino2Loggly from './lib/pino-loggly';
 import defaultConfig from './config';
-import { Config } from './index.d';
+
+export interface Config {
+  logger: {
+    name: string;
+    level: string;
+  };
+  sentry: {
+    dsn?: string;
+  };
+  loggly: {
+    token: string;
+    isBulk: boolean;
+    subdomain: string;
+  };
+}
 
 function init(config: Config) {
   const loggerName = config.logger.name;

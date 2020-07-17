@@ -1,17 +1,20 @@
-const { expect } = require('chai');
-const rewire = require('rewire');
+import { expect } from 'chai';
+import rewire from 'rewire';
 
-let logger = require('../dist/index').default;
+import logger from '../index.ts';
+
+let loggerTest = logger;
 
 describe('index.js', () => {
-  let oldStdoutWrite;
+  let oldStdoutWrite: any;
 
   describe('Log functions', () => {
-    const logs = [];
+    let logs: Array<string> = [];
 
     before(() => {
       oldStdoutWrite = process.stdout.write;
 
+      // @ts-ignore
       process.stdout.write = function stubStdout(string) {
         try {
           const parsedString = JSON.parse(string);
@@ -20,7 +23,7 @@ describe('index.js', () => {
           oldStdoutWrite.apply(process.stdout, [string]);
         }
       };
-      logger = rewire('../dist/index').default;
+      loggerTest = rewire('../index').default;
     });
 
     after(() => {
@@ -28,14 +31,14 @@ describe('index.js', () => {
     });
 
     it('should output the fatal level message', () => {
-      logger.fatal('hello');
-      let message = logs.shift();
+      loggerTest.fatal('hello');
+      let message: any = logs.shift();
       expect(message.name).to.be.eql('dev-logger');
       expect(message.msg).to.be.eql('hello');
       expect(message.level).to.be.eql(60);
 
       // Should keep the object safe:
-      logger.fatal(
+      loggerTest.fatal(
         {
           a: 1,
         },
@@ -46,7 +49,7 @@ describe('index.js', () => {
       expect(message.a).to.be.eql(1);
 
       // Should use the Error object for the stack:
-      logger.fatal(new Error('Fatal error'), 'hello');
+      loggerTest.fatal(new Error('Fatal error'), 'hello');
       message = logs.shift();
 
       expect(message).to.be.an('object').with.property('stack');
@@ -54,12 +57,12 @@ describe('index.js', () => {
     });
 
     it('should output the error level message', () => {
-      logger.error('hello');
-      let message = logs.shift();
+      loggerTest.error('hello');
+      let message: any = logs.shift();
       expect(message.level).to.be.eql(50);
 
       // Should keep the object safe:
-      logger.error(
+      loggerTest.error(
         {
           a: 1,
         },
@@ -70,7 +73,7 @@ describe('index.js', () => {
       expect(message.a).to.be.eql(1);
 
       // Should use the Error object for the stack:
-      logger.error(new Error('Fatal error'), 'hello');
+      loggerTest.error(new Error('Fatal error'), 'hello');
       message = logs.shift();
 
       expect(message).to.be.an('object');
@@ -78,31 +81,31 @@ describe('index.js', () => {
     });
 
     it('should output the warn level message', () => {
-      logger.warn('hello');
+      loggerTest.warn('hello');
       const message = logs.shift();
       expect(message).to.have.property('level', 40);
       expect(message).to.not.have.property('stack');
     });
 
     it('should output the info level message', () => {
-      logger.info('hello');
+      loggerTest.info('hello');
       const message = logs.shift();
       expect(message).to.have.property('level', 30);
     });
 
     it('should not output the trace level message (level set to debug)', () => {
-      logger.trace('hello');
+      loggerTest.trace('hello');
       expect(logs).to.have.lengthOf(0);
     });
 
     it('should format message correctly', () => {
-      logger.info('hello %s', 20);
-      const message = logs.shift();
+      loggerTest.info('hello %s', 20);
+      const message: any = logs.shift();
       expect(message.msg).to.be.eql('hello 20');
     });
 
     it('should keep objects safe', () => {
-      logger.info(
+      loggerTest.info(
         {
           a: 1,
           b: {
@@ -111,7 +114,7 @@ describe('index.js', () => {
         },
         'hello',
       );
-      const message = logs.shift();
+      const message: any = logs.shift();
       expect(message.a).to.be.eql(1);
       expect(message.b).to.be.eql({
         c: 1,

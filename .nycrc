@@ -4,8 +4,7 @@
   "functions": 90,
   "branches": 90,
   "include": [
-    "dist/index.js",
-    "dist/lib/**/*"
+    "**/*.ts"
   ],
   "reporter": [
     "lcov",
