@@ -54,10 +54,10 @@
     "typescript": "3.9.7"
   },
   "dependencies": {
-    "@sentry/node": "5.19.2",
+    "@sentry/node": "5.20.1",
     "json-stringify-safe": "5.0.1",
     "node-loggly-bulk": "2.2.4",
-    "pino": "6.4.0",
+    "pino": "6.4.1",
     "pino-multi-stream": "5.1.1"
   },
   "mocha": {
