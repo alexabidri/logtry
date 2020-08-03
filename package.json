@@ -57,7 +57,7 @@
     "@sentry/node": "5.20.1",
     "json-stringify-safe": "5.0.1",
     "node-loggly-bulk": "2.2.4",
-    "pino": "6.4.1",
+    "pino": "6.5.0",
     "pino-multi-stream": "5.1.1"
   },
   "mocha": {
