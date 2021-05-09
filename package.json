@@ -52,13 +52,13 @@
   "dependencies": {
     "@types/json-stringify-safe": "5.0.0",
     "@types/node-loggly-bulk": "2.2.0",
-    "@types/pino": "6.3.4",
-    "@types/pino-multi-stream": "5.1.0",
-    "@sentry/node": "5.29.0",
+    "@types/pino": "6.3.8",
+    "@types/pino-multi-stream": "5.1.1",
+    "@sentry/node": "5.30.0",
     "json-stringify-safe": "5.0.1",
-    "node-loggly-bulk": "2.2.4",
-    "pino": "6.8.0",
-    "pino-multi-stream": "5.1.1"
+    "node-loggly-bulk": "2.2.5",
+    "pino": "6.11.3",
+    "pino-multi-stream": "5.3.0"
   },
   "mocha": {
     "diff": true,
