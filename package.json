@@ -54,9 +54,9 @@
     "@types/node-loggly-bulk": "2.2.0",
     "@types/pino": "6.3.4",
     "@types/pino-multi-stream": "5.1.0",
-    "@sentry/node": "5.29.0",
+    "@sentry/node": "6.7.1",
     "json-stringify-safe": "5.0.1",
-    "node-loggly-bulk": "2.2.4",
+    "node-loggly-bulk": "3.0.0",
     "pino": "6.8.0",
     "pino-multi-stream": "5.1.1"
   },
